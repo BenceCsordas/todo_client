@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 //import { todosData } from '../data'
-import { ListGroup, ListGroupItem, Spinner } from 'reactstrap'
+import { Button, ListGroup, ListGroupItem, Spinner } from 'reactstrap'
 import { FaTrashAlt } from "react-icons/fa";
 import { MdFileDownloadDone } from "react-icons/md";
 import { NewTodo } from './NewTodo';
@@ -10,7 +10,7 @@ import { deleteTodo, getTodos, addTodo, doneTodo, deleteAllTodo } from '../utils
 
 
 
-export const Todo = () => {
+export const Todo = ({setIsLoggedIn}) => {
   const [todos, setTodos] = useState(null)
 
   useEffect(()=>{
@@ -70,19 +70,19 @@ const handleDone = async (id)=>{
       <NewTodo handleAdd={handleAdd}/>
       {/*<FaTrashAlt style={{ color: "red", fontSize: "3rem" }} onClick={() => handleDeleteAll()} />*/}
       <ListGroup>
-        {!todos && <Spinner style={{color:"red"}}/>}
+        {!todos && <Spinner style={{color:"red", position:"fixed", right:"50%", top:"50%"}}/>}
         {todos && todos.map(obj =>
           <ListGroupItem key={obj.id} className='d-flex justify-content-between'>
-            <MdFileDownloadDone style={{ color: obj.comleted ? "lightgreen" : "gray", fontSize: "2rem" }} onClick={() => handleDone(obj.id)} />
+            <MdFileDownloadDone style={{ color: obj.comleted ? "lightgreen" : "gray", fontSize: "2rem" , cursor:"pointer"}} onClick={() => handleDone(obj.id)} />
             <div style={{ textDecoration: obj.comleted ? "line-through" : "none" }}>
               {obj.task}
             </div>
-            <FaTrashAlt style={{ color: "red", fontSize: "2rem" }} onClick={() => handleDelete(obj.id)} />
+            <FaTrashAlt style={{ color: "red", fontSize: "2rem", cursor:"pointer" }} onClick={() => handleDelete(obj.id)} />
           </ListGroupItem>
         )}
       </ListGroup>
       {todos && <TodoSummary todos={todos}/>}
-
+      <Button className='logout' style={{position:"fixed", top:"5px", right:"5px"}} onClick={()=>setIsLoggedIn(false)}>Kijelentkezés</Button>
     </div>
 
   )

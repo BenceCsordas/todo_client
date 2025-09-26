@@ -29,8 +29,7 @@ export const NewTodo = ({handleAdd}) => {
                     />
                 </FormGroup>
                 <FormGroup>
-                    <Button onClick={handleSubmit} disabled={!task}>Add</Button>    
-                    
+                    <Button onClick={handleSubmit} disabled={!task} style={{cursor:"pointer"}}>Add</Button>                        
                 </FormGroup>
             </Form>
         </div>
